@@ -1,0 +1,20 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Sends me solar eclipse information at 7am every morning.",
+        "actions": [
+          {
+            "name": "run",
+            "type": "Void"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "sms": "sms:",
+    "openai": "openai:"
+  }
+}

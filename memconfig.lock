@@ -1,0 +1,2649 @@
+{
+  "types": {
+    "openai": {
+      "gref_hash": "b90b578c2d7b5f5771eb41f0dcf26a78f97f4eb348b9f551568d1b272bea6fc6",
+      "type": "openai:Root"
+    },
+    "sms": {
+      "gref_hash": "9f3731cc47302939f352abadad67485a33ed9eb069680d1c83dfcd21f1656c5e",
+      "type": "sms:Root"
+    }
+  },
+  "imports": [
+    {
+      "name": "sms",
+      "schema": {
+        "types": [
+          {
+            "name": "Root",
+            "description": "Send yourself text messages",
+            "actions": [
+              {
+                "name": "configure",
+                "description": "Configure your phone number to send and receive text messages.\nPrefix with '+' sign followed by country code.",
+                "type": "Void",
+                "params": [
+                  {
+                    "name": "number",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "send",
+                "description": "Sends an SMS to the configured phone number",
+                "type": "Void",
+                "params": [
+                  {
+                    "name": "message",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "handleSms",
+                "description": "Tells the user program that an sms was received. You don't normally have to use this.",
+                "type": "Void",
+                "params": [
+                  {
+                    "name": "message",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {
+                  "hidden": true
+                }
+              },
+              {
+                "name": "endpoint",
+                "description": "Invoked when an HTTP request is received for this program",
+                "type": "String",
+                "params": [
+                  {
+                    "name": "method",
+                    "description": "HTTP method",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "path",
+                    "description": "HTTP path",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "body",
+                    "description": "HTTP body, if any",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "query",
+                    "description": "HTTP query string, encoded as JSON",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "headers",
+                    "description": "HTTP headers, encoded as JSON",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {
+                  "hidden": true
+                }
+              },
+              {
+                "name": "email",
+                "description": "Invoked when a new email arrives for this program",
+                "type": "String",
+                "params": [
+                  {
+                    "name": "replyTo",
+                    "description": "Reply to",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "text",
+                    "description": "Email body as text",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "from",
+                    "description": "Email sender",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "to",
+                    "description": "To",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "cc",
+                    "description": "CC",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "subject",
+                    "description": "Email subject",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "html",
+                    "description": "Email body as HTML",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "id",
+                    "description": "Email ID",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "inReplyTo",
+                    "description": "ID of email this is a reply to, if any",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "replyText",
+                    "description": "Reply text",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "attachments",
+                    "description": "An array of attachment names and download URLs",
+                    "type": "Json",
+                    "optional": true
+                  }
+                ],
+                "hints": {
+                  "hidden": true
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Root",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": [
+              {
+                "name": "received",
+                "description": "",
+                "type": "ReceivedEvent",
+                "params": [],
+                "hints": {}
+              }
+            ]
+          },
+          {
+            "name": "ReceivedEvent",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "message",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "ReceivedEvent",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          }
+        ],
+        "imports": [
+          {
+            "name": "sys-sms",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "",
+                  "actions": [
+                    {
+                      "name": "configure",
+                      "description": "",
+                      "type": "Void",
+                      "params": [
+                        {
+                          "name": "number",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "send",
+                      "description": "",
+                      "type": "Void",
+                      "params": [
+                        {
+                          "name": "message",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ],
+                  "fields": [],
+                  "events": []
+                }
+              ],
+              "imports": []
+            },
+            "source": {
+              "Program": "tbd"
+            }
+          },
+          {
+            "name": "sys-clock",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "",
+                  "actions": [
+                    {
+                      "name": "sleep",
+                      "description": "",
+                      "type": "Void",
+                      "params": [
+                        {
+                          "name": "key",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "seconds",
+                          "description": "",
+                          "type": "Float",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ],
+                  "fields": [],
+                  "events": [
+                    {
+                      "name": "timer",
+                      "description": "",
+                      "type": "TimerEvent",
+                      "params": [
+                        {
+                          "name": "key",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "spec",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "maxCount",
+                          "description": "",
+                          "type": "Int",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "timerAt",
+                      "description": "",
+                      "type": "TimerEvent",
+                      "params": [
+                        {
+                          "name": "key",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "seconds",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ]
+                },
+                {
+                  "name": "TimerEvent",
+                  "description": "",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "id",
+                      "description": "",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": []
+            },
+            "source": {
+              "Program": ""
+            }
+          },
+          {
+            "name": "sys-process",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "endpointUrl",
+                      "description": "Gets the program's own endpoint URL",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": []
+            },
+            "source": {
+              "Program": ""
+            }
+          }
+        ]
+      },
+      "source": {
+        "Program": "tbd"
+      }
+    },
+    {
+      "name": "openai",
+      "schema": {
+        "types": [
+          {
+            "name": "Root",
+            "description": "Integrate OpenAI's language model API with Membrane",
+            "actions": [
+              {
+                "name": "configure",
+                "description": "Configure the OpenAI integration with a token",
+                "type": "Void",
+                "params": [
+                  {
+                    "name": "token",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "generateImage",
+                "description": "Generate an image using OpenAI's language model",
+                "type": "Json",
+                "params": [
+                  {
+                    "name": "prompt",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "n",
+                    "description": "",
+                    "type": "Int",
+                    "optional": false
+                  },
+                  {
+                    "name": "size",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "moderate",
+                "description": "Moderate content using OpenAI's moderation model",
+                "type": "Moderation",
+                "params": [
+                  {
+                    "name": "input",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "stable",
+                    "description": "",
+                    "type": "Boolean",
+                    "optional": true
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "endpoint",
+                "description": "Invoked when an HTTP request is received for this program",
+                "type": "String",
+                "params": [
+                  {
+                    "name": "method",
+                    "description": "HTTP method",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "path",
+                    "description": "HTTP path",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "body",
+                    "description": "HTTP body, if any",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "query",
+                    "description": "HTTP query string, encoded as JSON",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "headers",
+                    "description": "HTTP headers, encoded as JSON",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {
+                  "hidden": true
+                }
+              },
+              {
+                "name": "email",
+                "description": "Invoked when a new email arrives for this program",
+                "type": "String",
+                "params": [
+                  {
+                    "name": "replyTo",
+                    "description": "Reply to",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "text",
+                    "description": "Email body as text",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "from",
+                    "description": "Email sender",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "to",
+                    "description": "To",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "cc",
+                    "description": "CC",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "subject",
+                    "description": "Email subject",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "html",
+                    "description": "Email body as HTML",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "id",
+                    "description": "Email ID",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "inReplyTo",
+                    "description": "ID of email this is a reply to, if any",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "replyText",
+                    "description": "Reply text",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "attachments",
+                    "description": "An array of attachment names and download URLs",
+                    "type": "Json",
+                    "optional": true
+                  }
+                ],
+                "hints": {
+                  "hidden": true
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "status",
+                "description": "Status of the OpenAI integration",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "models",
+                "description": "Collection of OpenAI models",
+                "type": "ModelsCollection",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "fineTunes",
+                "description": "Collection of OpenAI fine-tunes",
+                "type": "FineTunesCollection",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "files",
+                "description": "Collection of OpenAI files",
+                "type": "FilesCollection",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "tests",
+                "description": "Collection of OpenAI tests",
+                "type": "Tests",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Root",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": [
+              {
+                "name": "statusChanged",
+                "description": "Triggered when the status of the OpenAI integration changes",
+                "type": "Void",
+                "params": [],
+                "hints": {}
+              }
+            ]
+          },
+          {
+            "name": "ModelsCollection",
+            "description": "Collection of OpenAI models",
+            "actions": [],
+            "fields": [
+              {
+                "name": "one",
+                "description": "Single OpenAI model",
+                "type": "Model",
+                "params": [
+                  {
+                    "name": "id",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "page",
+                "description": "List of OpenAI models",
+                "type": "List",
+                "ofType": "Model",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "ModelsCollection",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "FineTunesCollection",
+            "description": "Collection of FineTunes",
+            "actions": [
+              {
+                "name": "create",
+                "description": "Create a new FineTune",
+                "type": "FineTune",
+                "params": [
+                  {
+                    "name": "training_file",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "validation_file",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "model",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "n_epochs",
+                    "description": "",
+                    "type": "Int",
+                    "optional": false
+                  },
+                  {
+                    "name": "batch_size",
+                    "description": "",
+                    "type": "Int",
+                    "optional": false
+                  },
+                  {
+                    "name": "learning_rate_multiplier",
+                    "description": "",
+                    "type": "Float",
+                    "optional": true
+                  },
+                  {
+                    "name": "prompt_loss_weight",
+                    "description": "",
+                    "type": "Float",
+                    "optional": true
+                  },
+                  {
+                    "name": "compute_classification_metrics",
+                    "description": "",
+                    "type": "Boolean",
+                    "optional": true
+                  },
+                  {
+                    "name": "classification_n_classes",
+                    "description": "",
+                    "type": "Int",
+                    "optional": true
+                  },
+                  {
+                    "name": "classification_positive_class",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "classification_betas",
+                    "description": "",
+                    "type": "List",
+                    "ofType": "Float",
+                    "optional": true
+                  },
+                  {
+                    "name": "suffix",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  }
+                ],
+                "hints": {}
+              }
+            ],
+            "fields": [
+              {
+                "name": "one",
+                "description": "Single FineTune item",
+                "type": "FineTune",
+                "params": [
+                  {
+                    "name": "id",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "items",
+                "description": "List of FineTune items",
+                "type": "List",
+                "ofType": "FineTune",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "FineTunesCollection",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Model",
+            "description": "Collection of OpenAI models",
+            "actions": [
+              {
+                "name": "completeText",
+                "description": "Generate text based on a prompt",
+                "type": "String",
+                "params": [
+                  {
+                    "name": "prompt",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "max_tokens",
+                    "description": "",
+                    "type": "Int",
+                    "optional": true
+                  },
+                  {
+                    "name": "temperature",
+                    "description": "",
+                    "type": "Float",
+                    "optional": true
+                  },
+                  {
+                    "name": "suffix",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "top_p",
+                    "description": "",
+                    "type": "Float",
+                    "optional": true
+                  },
+                  {
+                    "name": "n",
+                    "description": "",
+                    "type": "Int",
+                    "optional": true
+                  },
+                  {
+                    "name": "stream",
+                    "description": "",
+                    "type": "Boolean",
+                    "optional": true
+                  },
+                  {
+                    "name": "logprobs",
+                    "description": "",
+                    "type": "Int",
+                    "optional": true
+                  },
+                  {
+                    "name": "echo",
+                    "description": "",
+                    "type": "Boolean",
+                    "optional": true
+                  },
+                  {
+                    "name": "stop",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "presence_penalty",
+                    "description": "",
+                    "type": "Float",
+                    "optional": true
+                  },
+                  {
+                    "name": "frequency_penalty",
+                    "description": "",
+                    "type": "Float",
+                    "optional": true
+                  },
+                  {
+                    "name": "best_of",
+                    "description": "",
+                    "type": "Int",
+                    "optional": true
+                  },
+                  {
+                    "name": "logit_bias",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "user",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "edit",
+                "description": "Edit the text based on the input and instruction",
+                "type": "String",
+                "params": [
+                  {
+                    "name": "input",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "instruction",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "temperature",
+                    "description": "",
+                    "type": "Float",
+                    "optional": true
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "completeChat",
+                "description": "Generate a chat response based on messages and functions",
+                "type": "Json",
+                "params": [
+                  {
+                    "name": "messages",
+                    "description": "",
+                    "type": "Json",
+                    "optional": false
+                  },
+                  {
+                    "name": "tools",
+                    "description": "",
+                    "type": "Json",
+                    "optional": true
+                  },
+                  {
+                    "name": "temperature",
+                    "description": "",
+                    "type": "Float",
+                    "optional": true
+                  },
+                  {
+                    "name": "top_p",
+                    "description": "",
+                    "type": "Float",
+                    "optional": true
+                  },
+                  {
+                    "name": "n",
+                    "description": "",
+                    "type": "Int",
+                    "optional": true
+                  },
+                  {
+                    "name": "stream",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "stop",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "max_tokens",
+                    "description": "",
+                    "type": "Int",
+                    "optional": true
+                  },
+                  {
+                    "name": "presence_penalty",
+                    "description": "",
+                    "type": "Float",
+                    "optional": true
+                  },
+                  {
+                    "name": "frequency_penalty",
+                    "description": "",
+                    "type": "Float",
+                    "optional": true
+                  },
+                  {
+                    "name": "logit_bias",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "user",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "createEmbeddings",
+                "description": "Create text embeddings for the input",
+                "type": "Json",
+                "params": [
+                  {
+                    "name": "input",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "inputs",
+                    "description": "",
+                    "type": "Json",
+                    "optional": true
+                  },
+                  {
+                    "name": "user",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  }
+                ],
+                "hints": {}
+              }
+            ],
+            "fields": [
+              {
+                "name": "id",
+                "description": "The ID of the model",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "object",
+                "description": "The type of the model",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "owned_by",
+                "description": "The owner of the model",
+                "type": "String",
+                "params": [],
+                "hints": {
+                  "primary": true
+                }
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Model",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Image",
+            "description": "Root type for handling image-related functionality",
+            "actions": [],
+            "fields": [
+              {
+                "name": "url",
+                "description": "The URL of the image",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Image",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Moderation",
+            "description": "Type schema for content moderation",
+            "actions": [],
+            "fields": [
+              {
+                "name": "violence_graphic",
+                "description": "Indicates the presence of graphic violence in the content",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "violence",
+                "description": "Indicates the presence of violence in the content",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "sexual_minors",
+                "description": "Indicates the presence of sexual content involving minors",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "sexual",
+                "description": "Indicates the presence of sexual content",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "self_harm",
+                "description": "Indicates the presence of self-harm content",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "hate_threatening",
+                "description": "Indicates the presence of hate speech or threatening content",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "hate",
+                "description": "Indicates the presence of hate speech",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "violence_graphic_score",
+                "description": "Score indicating the severity of graphic violence in the content",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "violence_score",
+                "description": "Score indicating the severity of violence in the content",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "sexual_minors_score",
+                "description": "Score indicating the severity of sexual content involving minors",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "sexual_score",
+                "description": "Score indicating the severity of sexual content",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "self_harm_score",
+                "description": "Score indicating the severity of self-harm content",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "hate_threatening_score",
+                "description": "Score indicating the severity of hate speech or threatening content",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "hate_score",
+                "description": "Score indicating the severity of hate speech",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Moderation",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "FineTune",
+            "description": "Type representing the fine-tuning process for an AI model.",
+            "actions": [],
+            "fields": [
+              {
+                "name": "id",
+                "description": "The unique identifier for the fine-tuning process.",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "object",
+                "description": "The type of object being fine-tuned.",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "model",
+                "description": "The base model being fine-tuned.",
+                "type": "String",
+                "params": [],
+                "hints": {
+                  "primary": true
+                }
+              },
+              {
+                "name": "hyperparams",
+                "description": "The hyperparameters used for fine-tuning.",
+                "type": "Hyperparams",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "fine_tuned_model",
+                "description": "The resulting fine-tuned model.",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "organization_id",
+                "description": "The ID of the organization performing the fine-tuning.",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "status",
+                "description": "The status of the fine-tuning process.",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "created_at",
+                "description": "The timestamp when the fine-tuning process was created.",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "updated_at",
+                "description": "The timestamp when the fine-tuning process was last updated.",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "events",
+                "description": "The events associated with the fine-tuning process.",
+                "type": "Events",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "result_files",
+                "description": "The files resulting from the fine-tuning process.",
+                "type": "List",
+                "ofType": "File",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "training_files",
+                "description": "The files used for training the model.",
+                "type": "List",
+                "ofType": "File",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "validation_files",
+                "description": "The files used for validating the fine-tuned model.",
+                "type": "List",
+                "ofType": "File",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "FineTune",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Hyperparams",
+            "description": "Collection of hyperparameters for the membrane-driver-openai program",
+            "actions": [],
+            "fields": [
+              {
+                "name": "batch_size",
+                "description": "The batch size hyperparameter",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "learning_rate_multiplier",
+                "description": "The learning rate multiplier hyperparameter",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "n_epochs",
+                "description": "The number of epochs hyperparameter",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "prompt_loss_weight",
+                "description": "The prompt loss weight hyperparameter",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Hyperparams",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Events",
+            "description": "Collection of event data related to the OpenAI membrane driver",
+            "actions": [],
+            "fields": [
+              {
+                "name": "object",
+                "description": "The object associated with the event",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "created_at",
+                "description": "The timestamp when the event was created",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "level",
+                "description": "The level of the event",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "message",
+                "description": "The message associated with the event",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Events",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "FilesCollection",
+            "description": "Collection of files for the Membrane OpenAI driver",
+            "actions": [
+              {
+                "name": "upload",
+                "description": "Uploads a file with the specified name and contents",
+                "type": "Void",
+                "params": [
+                  {
+                    "name": "name",
+                    "description": "The name of the file to be uploaded",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "contents",
+                    "description": "The contents of the file to be uploaded",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "purpose",
+                    "description": "The purpose of the file upload (optional)",
+                    "type": "String",
+                    "optional": true
+                  }
+                ],
+                "hints": {}
+              }
+            ],
+            "fields": [
+              {
+                "name": "one",
+                "description": "File with the specified ID",
+                "type": "File",
+                "params": [
+                  {
+                    "name": "id",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "items",
+                "description": "List of files",
+                "type": "List",
+                "ofType": "File",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "FilesCollection",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "File",
+            "description": "Type representing a file in the OpenAI Membrane Driver",
+            "actions": [],
+            "fields": [
+              {
+                "name": "id",
+                "description": "Unique identifier of the file",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "object",
+                "description": "The object representation of the file",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "bytes",
+                "description": "The size of the file in bytes",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "created_at",
+                "description": "The timestamp when the file was created",
+                "type": "String",
+                "params": [],
+                "hints": {
+                  "primary": true
+                }
+              },
+              {
+                "name": "filename",
+                "description": "The name of the file",
+                "type": "String",
+                "params": [],
+                "hints": {
+                  "primary": true
+                }
+              },
+              {
+                "name": "purpose",
+                "description": "The purpose or use case of the file",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "File",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Tests",
+            "description": "Root type for the Membrane OpenAI driver",
+            "actions": [
+              {
+                "name": "testGetModels",
+                "description": "Action to test fetching models from OpenAI",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "fields": [
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Tests",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          }
+        ],
+        "imports": [
+          {
+            "name": "http",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "Make HTTP requests",
+                  "actions": [
+                    {
+                      "name": "post",
+                      "description": "Performs a POST request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "The URL to send the POST request to",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "Optional headers for the POST request",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "The body of the POST request",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "put",
+                      "description": "Performs a PUT request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "The URL to send the PUT request to",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "Optional headers for the PUT request",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "The body of the PUT request",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "patch",
+                      "description": "Performs a PATCH request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "The URL to send the PATCH request to",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "Optional headers for the PATCH request",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "The body of the PATCH request",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "delete",
+                      "description": "Performs a DELETE request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "The URL to send the DELETE request to",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "Optional headers for the DELETE request",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "The body of the DELETE request",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "endpoint",
+                      "description": "Invoked when an HTTP request is received for this program",
+                      "type": "String",
+                      "params": [
+                        {
+                          "name": "method",
+                          "description": "HTTP method",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "path",
+                          "description": "HTTP path",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "body",
+                          "description": "HTTP body, if any",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "query",
+                          "description": "HTTP query string, encoded as JSON",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "headers",
+                          "description": "HTTP headers, encoded as JSON",
+                          "type": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {
+                        "hidden": true
+                      }
+                    },
+                    {
+                      "name": "email",
+                      "description": "Invoked when a new email arrives for this program",
+                      "type": "String",
+                      "params": [
+                        {
+                          "name": "replyTo",
+                          "description": "Reply to",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "text",
+                          "description": "Email body as text",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "from",
+                          "description": "Email sender",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "to",
+                          "description": "To",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "cc",
+                          "description": "CC",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "subject",
+                          "description": "Email subject",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "html",
+                          "description": "Email body as HTML",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "id",
+                          "description": "Email ID",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "inReplyTo",
+                          "description": "ID of email this is a reply to, if any",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "replyText",
+                          "description": "Reply text",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "attachments",
+                          "description": "An array of attachment names and download URLs",
+                          "type": "Json",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {
+                        "hidden": true
+                      }
+                    }
+                  ],
+                  "fields": [
+                    {
+                      "name": "get",
+                      "description": "A resource obtained via a GET request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "The URL of the resource to retrieve",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "Optional headers for the GET request",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "authenticated",
+                      "description": "An HTTP client that can make authenticated requests using Membrane's Transparent Authentication. Used by drivers to use avoid requiring an API key/secret pair.",
+                      "type": "Authenticated",
+                      "params": [
+                        {
+                          "name": "api",
+                          "description": "The API to use. Check https://www.membrane.io/docs for a list of APIs that support this",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "authId",
+                          "description": "An arbitrary gref that uniquely identifies this program.",
+                          "type": "Ref",
+                          "ofType": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "gref",
+                      "description": "A reference to this node",
+                      "type": "Ref",
+                      "ofType": "Root",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                },
+                {
+                  "name": "Resource",
+                  "description": "An HTTP response",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "status",
+                      "description": "HTTP status code",
+                      "type": "Int",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "headers",
+                      "description": "HTTP headers returned by server",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "body",
+                      "description": "Body of the request as a string",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "gref",
+                      "description": "A reference to this node",
+                      "type": "Ref",
+                      "ofType": "Resource",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                },
+                {
+                  "name": "Authenticated",
+                  "description": "",
+                  "actions": [
+                    {
+                      "name": "createLink",
+                      "description": "Creates a link to authenticate the user with an API and enable Membrane's Transparent Auth. Valid values for `api`: `google-docs`",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "post",
+                      "description": "Performs a POST request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "put",
+                      "description": "Performs a PUT request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "patch",
+                      "description": "Performs a PATCH request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "delete",
+                      "description": "Performs a DELETE request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ],
+                  "fields": [
+                    {
+                      "name": "get",
+                      "description": "A resource obtained via a GET request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "hasAuthenticated",
+                      "description": "Whether the user has authenticated with this API",
+                      "type": "Boolean",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "gref",
+                      "description": "A reference to this node",
+                      "type": "Ref",
+                      "ofType": "Authenticated",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": [
+                {
+                  "name": "sys-http",
+                  "schema": {
+                    "types": [
+                      {
+                        "name": "Root",
+                        "description": "",
+                        "actions": [
+                          {
+                            "name": "post",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "put",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "patch",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "delete",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          }
+                        ],
+                        "fields": [
+                          {
+                            "name": "get",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "authenticated",
+                            "description": "An HTTP client that can make authenticated requests using Membrane's Transparent Authentication. Used by drivers to use avoid requiring an API key/secret pair.",
+                            "type": "Authenticated",
+                            "params": [
+                              {
+                                "name": "api",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "authId",
+                                "description": "",
+                                "type": "Ref",
+                                "ofType": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          }
+                        ],
+                        "events": []
+                      },
+                      {
+                        "name": "Resource",
+                        "description": "",
+                        "actions": [],
+                        "fields": [
+                          {
+                            "name": "status",
+                            "description": "",
+                            "type": "Int",
+                            "params": [],
+                            "hints": {}
+                          },
+                          {
+                            "name": "headers",
+                            "description": "",
+                            "type": "String",
+                            "params": [],
+                            "hints": {}
+                          },
+                          {
+                            "name": "body",
+                            "description": "",
+                            "type": "String",
+                            "params": [],
+                            "hints": {}
+                          }
+                        ],
+                        "events": []
+                      },
+                      {
+                        "name": "Authenticated",
+                        "description": "",
+                        "actions": [
+                          {
+                            "name": "createLink",
+                            "description": "Creates a link to authenticate the user with this API",
+                            "type": "String",
+                            "params": [],
+                            "hints": {}
+                          },
+                          {
+                            "name": "post",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "put",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "patch",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "delete",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          }
+                        ],
+                        "fields": [
+                          {
+                            "name": "get",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "hasAuthenticated",
+                            "description": "Whether the user has authenticated with this API",
+                            "type": "Boolean",
+                            "params": [],
+                            "hints": {}
+                          }
+                        ],
+                        "events": []
+                      }
+                    ],
+                    "imports": []
+                  },
+                  "source": {
+                    "Program": "tbd"
+                  }
+                },
+                {
+                  "name": "sys-clock",
+                  "schema": {
+                    "types": [
+                      {
+                        "name": "Root",
+                        "description": "",
+                        "actions": [
+                          {
+                            "name": "sleep",
+                            "description": "",
+                            "type": "Void",
+                            "params": [
+                              {
+                                "name": "key",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "seconds",
+                                "description": "",
+                                "type": "Float",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          }
+                        ],
+                        "fields": [],
+                        "events": [
+                          {
+                            "name": "timer",
+                            "description": "",
+                            "type": "TimerEvent",
+                            "params": [
+                              {
+                                "name": "key",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "spec",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "maxCount",
+                                "description": "",
+                                "type": "Int",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "timerAt",
+                            "description": "",
+                            "type": "TimerEvent",
+                            "params": [
+                              {
+                                "name": "key",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "seconds",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          }
+                        ]
+                      },
+                      {
+                        "name": "TimerEvent",
+                        "description": "",
+                        "actions": [],
+                        "fields": [
+                          {
+                            "name": "id",
+                            "description": "",
+                            "type": "String",
+                            "params": [],
+                            "hints": {}
+                          }
+                        ],
+                        "events": []
+                      }
+                    ],
+                    "imports": []
+                  },
+                  "source": {
+                    "Program": ""
+                  }
+                },
+                {
+                  "name": "sys-process",
+                  "schema": {
+                    "types": [
+                      {
+                        "name": "Root",
+                        "description": "",
+                        "actions": [],
+                        "fields": [
+                          {
+                            "name": "endpointUrl",
+                            "description": "Gets the program's own endpoint URL",
+                            "type": "String",
+                            "params": [],
+                            "hints": {}
+                          }
+                        ],
+                        "events": []
+                      }
+                    ],
+                    "imports": []
+                  },
+                  "source": {
+                    "Program": ""
+                  }
+                }
+              ]
+            },
+            "source": {
+              "Program": "tbd"
+            }
+          },
+          {
+            "name": "sys-clock",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "",
+                  "actions": [
+                    {
+                      "name": "sleep",
+                      "description": "",
+                      "type": "Void",
+                      "params": [
+                        {
+                          "name": "key",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "seconds",
+                          "description": "",
+                          "type": "Float",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ],
+                  "fields": [],
+                  "events": [
+                    {
+                      "name": "timer",
+                      "description": "",
+                      "type": "TimerEvent",
+                      "params": [
+                        {
+                          "name": "key",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "spec",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "maxCount",
+                          "description": "",
+                          "type": "Int",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "timerAt",
+                      "description": "",
+                      "type": "TimerEvent",
+                      "params": [
+                        {
+                          "name": "key",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "seconds",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ]
+                },
+                {
+                  "name": "TimerEvent",
+                  "description": "",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "id",
+                      "description": "",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": []
+            },
+            "source": {
+              "Program": ""
+            }
+          },
+          {
+            "name": "sys-process",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "endpointUrl",
+                      "description": "Gets the program's own endpoint URL",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": []
+            },
+            "source": {
+              "Program": ""
+            }
+          }
+        ]
+      },
+      "source": {
+        "Program": "tbd"
+      }
+    }
+  ]
+}
