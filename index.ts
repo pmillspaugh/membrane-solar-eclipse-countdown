@@ -8,7 +8,7 @@ export async function run() {
   const fact = state.messages[state.messages.length - 1];
   const message = `Good morning. There are ${getDaysUntilSolarEclipse()} days until the solar eclipse. ${fact}`;
 
-  await nodes.sms.send({ message }).$invoke();
+  await nodes.sms.send({ message });
 }
 
 async function generateSolarEclipseFact() {
